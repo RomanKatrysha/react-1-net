@@ -8,10 +8,12 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import React from "react";
 import New from "./componeents/New/New";
 import Music from "./componeents/Music/Music";
+import {changeFaeldMyPost} from "./redux/state";
 
 
 
 function App(props) {
+
   return (
     <BrowserRouter>
     <div className="app-wrapper">
@@ -19,8 +21,13 @@ function App(props) {
         <Nav />
         <div className="app-wrapper-content">
             <Routes>
-                <Route path="/dialogs/*" element = {<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
-                <Route path="/profile" element = {<Profile postsData={props.postsData}/>}/>
+                <Route path="/dialogs/*" element = {<Dialogs dialogesPage ={props.state.dialogesPage}/>}/>
+                <Route path="/profile"  element =
+                    {<Profile
+                        profilePage={props.state.profilePage}
+                        addPost = {props.addPost}
+                        changeFaeldMyPost = {props.changeFaeldMyPost}
+                />}/>
                 <Route path="/new" element = {<New/>}/>
                 <Route path="/music" element = {<Music/>}/>
             </Routes>
