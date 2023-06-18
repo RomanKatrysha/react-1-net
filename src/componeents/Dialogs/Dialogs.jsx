@@ -2,15 +2,19 @@ import React from "react";
 import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {addMessageActionCreator, messageChangeActionCreator} from "../../redux/messagerReducer";
 
 
 const Dialogs = function (props) {
+    function messageChange(e){
+        let textMessage = e.target.value;//newMessage.current.value;
+        props.dispatch(messageChangeActionCreator(textMessage));
+    }
     function addMessage(){
-        let textMessage = newMessage.current.value;
-        alert(textMessage);
+       props.dispatch(addMessageActionCreator());
 
     }
-    let newMessage = React.createRef();
+    //let newMessage = React.createRef();
 
 
     let dialogsElements =
@@ -29,7 +33,7 @@ const Dialogs = function (props) {
             <div className={s.messages}>
                 {messagesElements}
                 <div>
-                    <textarea ref={newMessage}></textarea>
+                    <textarea placeholder="Enter you message" onChange={messageChange} value={props.dialogesPage.contentNewMessage} />
                 </div>
                 <div>
                     <button onClick={addMessage}>add message</button>
