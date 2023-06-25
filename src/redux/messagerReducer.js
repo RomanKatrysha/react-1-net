@@ -7,16 +7,40 @@ export function messageChangeActionCreator(text){
 export function addMessageActionCreator(){
     return {type : ADD_MESSADGE}
 }
-function  messagerReducer(state, action){
-    if (action.type === CHANGE_FAELD_NEW_MESSAGE){
-        state.contentNewMessage = action.text;
 
+let initializationState = {
+    dialogsData: [
+        {id: 1, name: "Sveta"},
+        {id: 2, name: "Vasy"},
+        {id: 3, name: "Pety"},
+        {id: 4, name: "Koly"},
+    ],
+    messagesData: [
+        {id: 1, message: "Hi"},
+        {id: 2, message: "Hello"},
+        {id: 3, message: "fjffdlsfsj"},
+        {id: 4, message: "Yo Yo YO"},
+    ],
+    contentNewMessage : "",
+}
+function  messagerReducer(state = initializationState, action){
+
+
+    if (action.type === CHANGE_FAELD_NEW_MESSAGE){
+        return {
+            ...state,
+            contentNewMessage:action.text
+        };
     }
+
+
     else if (action.type === ADD_MESSADGE){
-        let newMessage =
-            {id : 5, message : state.contentNewMessage};
-        state.contentNewMessage = "";
-        state.messagesData.push(newMessage);
+        return {
+            ...state,
+            messagesData: [...state.messagesData,{id : 5, message : state.contentNewMessage}],
+            contentNewMessage: ""
+        }
+
 
     }
     return state;
